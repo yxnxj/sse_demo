@@ -68,9 +68,10 @@ public class UserChannel {
 //        if (closeCallback != null) closeCallback.run();
 //        sink.complete();
 //    }
-    private void close() {
+    public void close() {
         if (closeCallback != null) closeCallback.run();
-        sink.emitComplete(this::printFailureLog);
+//        sink.emitComplete(this::printFailureLog);
+        sink.tryEmitComplete();
     }
 
     public UserChannel onClose(Runnable closeCallback) {

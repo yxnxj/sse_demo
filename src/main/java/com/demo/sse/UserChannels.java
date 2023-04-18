@@ -15,4 +15,19 @@ public class UserChannels {
         Optional.ofNullable(map.get(userId)).ifPresentOrElse(ch -> ch.send(message), () -> {
         });
     }
+
+    public void close(Long userId) {
+        Optional.ofNullable(map.get(userId)).ifPresentOrElse(
+                userChannel -> {
+                    System.out.println("before map size : " + map.size());
+                    userChannel.onClose(() -> {
+                        userChannel.close();
+                        map.remove(userId);
+                    });
+                    System.out.println("after map size : "  + map.size());
+                }
+                , () -> {
+                });
+        System.out.println("channel close");
+    }
 }

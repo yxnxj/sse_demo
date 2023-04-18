@@ -28,5 +28,8 @@ public class UserChannelApi {
     public void send(@PathVariable("userId") Long userId,
                      @RequestBody String message) {
         channels.post(userId, message);
+
+        if(message.equals("STOP")) channels.close(userId);
+
     }
 }
